@@ -1,31 +1,32 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosClient from "../axios/axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
-
-export const loginData = createAsyncThunk("loginData",
+const navigate = useNavigate();
+export const postProductData = createAsyncThunk("postProductData",
     async(data) => {
         try{
-            const response = await axiosClient.post('/login', data);
+            const response = await axiosClient.post('/store', data);
             if(response.data.status === 200) {
-                <Navigate to="/" />
-            }
-            localStorage.setItem("token", response.data.token);
-            return response.json()
-            
+                navigate("/");
+                return response.data;
+            }      
         }
         catch(error) {
             return Promise.reject(error)
         }
     }
 );
-export const registerData = createAsyncThunk("registerData",
+export const readProductData = createAsyncThunk("readProductData",
     async(data) => {
         
         try{
-            const response = await axiosClient.post('/register', data);
-            return response.json()
+            const response = await axiosClient.post('/index', data);
+            if(response.data.status === 200) {
+                navigate("/");
+                return response.data;
+            }
         }
         catch(error){
             return Promise.reject(error)
@@ -34,22 +35,23 @@ export const registerData = createAsyncThunk("registerData",
 );
 
 const initialState = {
-    registerData: [],
-    loginData: [],
+    readProduct: [],
+    postProduct: [],
+    isLoading: true,
 }
 
 const dataSlice = createSlice({
     name: "todo",
     initialState,
     extraReducers: (builder) => {
-        //register account
-        builder.addCase(registerData.fulfilled, (state, action) => {
-            state.registerData = action.payload
+        //read product account from database
+        builder.addCase(readProductData.fulfilled, (state, action) => {
+            state.readProduct = action.payload
         });
-        //login user
-        builder.addCase(loginData.fulfilled, (state, action) => {
+        //post product data from database
+        builder.addCase(postProductData.fulfilled, (state, action) => {
             state.isLoading = false
-            state.loginData = action.payload
+            state.postProduct = action.payload
         });
     }
 });
