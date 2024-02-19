@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,4 +25,8 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware(['auth:api'])->group(function(){
     Route::post('/logout', [UserController::class, 'logout']);
+
 });
+
+Route::get('/show', [ProductController::class, 'index']);
+Route::post('/store', [ProductController::class, 'store']);

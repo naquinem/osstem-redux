@@ -2,12 +2,17 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/login";
 import Register from "./pages/Register";
-import Slice from "./redux/Slice";
+import Create from "./pages/Create";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
     {
-        path: '/slice',
-        element: <Slice />
+        path: '/store-data',
+        element: <Create />
+    },
+    {
+        path: '/*',
+        element: <NotFound />
     },
     {
         path: '/',

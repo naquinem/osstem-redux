@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('item_code');
             $table->string('description');
-            $table->integer('quantity');
-            $table->decimal('price', 8, 3);
+            $table->string('quantity');
+            $table->string('price');
             $table->timestamps();
         });
     }

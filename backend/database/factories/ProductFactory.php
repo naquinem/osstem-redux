@@ -18,10 +18,10 @@ class ProductFactory extends Factory
     {
         return [
 
-            'item_code' => fake()->bothify('??#????##'),
+            'item_code' => fake()->text(),
             'description' => fake()->text(),
-            'quantity' => fake()->randomDigit(),
-            'price' => fake()->randomDigit(),
+            'quantity' => fake()->text(),
+            'price' => fake()->text(),
 
         ];
     }
